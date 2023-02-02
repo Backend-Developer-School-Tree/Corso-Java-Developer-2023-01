@@ -22,9 +22,7 @@ public class Cruciverba {
                     while (contatore < parola.length() && carattere_attuale == parola.charAt(contatore)) {
                         contatore++;
                         carattere_attuale = matrice[i-contatore][j];
-                        System.out.println(carattere_attuale);
                     }
-                    System.out.println(contatore);
                     if (contatore == parola.length()) return true;
                 }
 
@@ -57,6 +55,50 @@ public class Cruciverba {
                     while (contatore < parola.length() && carattere_attuale == parola.charAt(contatore)) {
                         contatore++;
                         carattere_attuale = matrice[i][j-contatore];
+                    }
+                    if (contatore == parola.length()) return true;
+                }
+
+                /* direzione alto a sinistra */
+                if (i >= parola.length()-1 && j >= parola.length()-1 && matrice[i-1][j-1] == parola.charAt(1)) {
+                    char carattere_attuale = matrice[i-1][j-1]; // punto di partenza (il terzo carattere della parola)
+                    int contatore = 1; // il numero di caratteri che ho controllato e che sono uguali
+                    while (contatore < parola.length() && carattere_attuale == parola.charAt(contatore)) {
+                        contatore++;
+                        carattere_attuale = matrice[i-contatore][j-contatore];
+                    }
+                    if (contatore == parola.length()) return true;
+                }
+
+                /* direzione alto a destra  */
+                if (i >= parola.length()-1 && matrice[0].length - j >= parola.length() && matrice[i-1][j+1] == parola.charAt(1)) {
+                    char carattere_attuale = matrice[i-1][j+1]; // punto di partenza (il terzo carattere della parola)
+                    int contatore = 1; // il numero di caratteri che ho controllato e che sono uguali
+                    while (contatore < parola.length() && carattere_attuale == parola.charAt(contatore)) {
+                        contatore++;
+                        carattere_attuale = matrice[i-contatore][j+contatore];
+                    }
+                    if (contatore == parola.length()) return true;
+                }
+
+                /* direzione basso a destra */
+                if (matrice.length - i >= parola.length() && matrice[0].length - j >= parola.length()  && matrice[i+1][j+1] == parola.charAt(1)) {
+                    char carattere_attuale = matrice[i+1][j+1]; // punto di partenza (il terzo carattere della parola)
+                    int contatore = 1; // il numero di caratteri che ho controllato e che sono uguali
+                    while (contatore < parola.length() && carattere_attuale == parola.charAt(contatore)) {
+                        contatore++;
+                        carattere_attuale = matrice[i+contatore][j+contatore];
+                    }
+                    if (contatore == parola.length()) return true;
+                }
+
+                /* direzione basso a sinistra */
+                if (matrice.length - i >= parola.length() && j >= parola.length()-1  && matrice[i+1][j-1] == parola.charAt(1)) {
+                    char carattere_attuale = matrice[i+1][j-1]; // punto di partenza (il terzo carattere della parola)
+                    int contatore = 1; // il numero di caratteri che ho controllato e che sono uguali
+                    while (contatore < parola.length() && carattere_attuale == parola.charAt(contatore)) {
+                        contatore++;
+                        carattere_attuale = matrice[i+contatore][j-contatore];
                     }
                     if (contatore == parola.length()) return true;
                 }
