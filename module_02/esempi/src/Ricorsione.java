@@ -1,5 +1,3 @@
-package esempi;
-
 import java.util.Arrays;
 
 public class Ricorsione {
