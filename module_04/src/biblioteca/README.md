@@ -44,6 +44,12 @@ ad esempio nome, autore, categoria, ecc, e modificare di conseguenza la classe B
 
 NOTA: l'ordinamento dei libri può essere implementato da zero o fatto in maniera più smart con un Comparator, che però vedremo dal modulo 6 in poi (una volta sostenuti questi moduli, è possibile riprendere in mano l'esercizio per migliorare il risultato sfruttando le nuove conoscenze).
 
+```
+// dato un array di oggetti di tipo Libro (Libro[] books), i quali contengono un metodo getIndex
+// possiamo ordinarlo con Arrays.sort aggiungendo il seguente Comparator come secondo parametro
+Arrays.sort(books, Comparator.comparing(Libro::getIndex));
+```
+
 
 
 
