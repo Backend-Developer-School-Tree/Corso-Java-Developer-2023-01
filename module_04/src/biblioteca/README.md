@@ -36,11 +36,15 @@ public class Main {
 
 Suggerimento: riutilizzate il codice dei precedenti esercizi
 
-## Biblioteca2
+## Bonus stage 🏍
 
 Rendere la biblioteca funzionante con dei libri veri e propri invece che con solo i loro indici.
 Creare quindi una classe Libro con delle proprie caratteristiche, tra cui l'indice che usavamo prima,
 ad esempio nome, autore, categoria, ecc, e modificare di conseguenza la classe Biblioteca ed il main di test.
+
+NOTA: l'ordinamento dei libri può essere implementato da zero o fatto in maniera più smart con un Comparator, che però vedremo dal modulo 6 in poi (una volta sostenuti questi moduli, è possibile riprendere in mano l'esercizio per migliorare il risultato sfruttando le nuove conoscenze).
+
+
 
 
 
