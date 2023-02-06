@@ -1,3 +1,7 @@
+package cruciverba;
+
+import cruciverba.Cruciverba;
+
 import java.util.Arrays;
 
 public class Main {

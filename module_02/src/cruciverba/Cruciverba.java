@@ -1,3 +1,5 @@
+package cruciverba;
+
 public class Cruciverba {
 
     /* questo metodo prende in input una matrice di caratteri e una parola sottoforma di stringa

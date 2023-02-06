@@ -15,6 +15,7 @@ Scrivete un programma che permette ad un utente di giocare al vostro labirinto. 
 
 
 ## Esempio di come funziona
+
 ![test](Immagini/laby.gif)
 
 
