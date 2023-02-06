@@ -36,7 +36,7 @@ public class Main {
 
 Suggerimento: riutilizzate il codice dei precedenti esercizi
 
-## Bonus stage 🏍
+## Bonus stage
 
 Rendere la biblioteca funzionante con dei libri veri e propri invece che con solo i loro indici.
 Creare quindi una classe Libro con delle proprie caratteristiche, tra cui l'indice che usavamo prima,
