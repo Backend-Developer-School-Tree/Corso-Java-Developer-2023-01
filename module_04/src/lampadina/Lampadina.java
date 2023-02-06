@@ -4,6 +4,9 @@ public class Lampadina {
 
     private static boolean hasElectricity;
     private StatoLampadina stato;
+    /**
+     * Numero di click possibili rimasti prima della rottura della lampadina
+     */
     private int clickCount;
 
     /**
