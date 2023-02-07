@@ -42,7 +42,7 @@ Rendere la biblioteca funzionante con dei libri veri e propri invece che con sol
 Creare quindi una classe Libro con delle proprie caratteristiche, tra cui l'indice che usavamo prima,
 ad esempio nome, autore, categoria, ecc, e modificare di conseguenza la classe Biblioteca ed il main di test.
 
-NOTA: l'ordinamento dei libri può essere implementato da zero (ad esempio implementando l'[insertion sort](https://en.wikipedia.org/wiki/Insertion_sort)) o fatto in maniera più smart con un Comparator, che però vedremo dal modulo 6 in poi (una volta sostenuti questi moduli, è possibile riprendere in mano l'esercizio per migliorare il risultato sfruttando le nuove conoscenze).
+NOTA: l'ordinamento dei libri può essere implementato da zero (ad esempio implementando il [selection sort](https://en.wikipedia.org/wiki/Selection_sort) o l'[insertion sort](https://en.wikipedia.org/wiki/Insertion_sort)) o fatto in maniera più smart con un Comparator, che però vedremo dal modulo 6 in poi (una volta sostenuti questi moduli, è possibile riprendere in mano l'esercizio per migliorare il risultato sfruttando le nuove conoscenze).
 
 ```Java
 // dato un array di oggetti di tipo Libro (Libro[] books), i quali contengono un metodo getIndex
