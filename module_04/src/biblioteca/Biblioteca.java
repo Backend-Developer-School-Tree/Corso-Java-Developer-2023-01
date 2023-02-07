@@ -13,6 +13,8 @@ public class Biblioteca {
         // this.sortBooks2();
     }
 
+    public boolean esisteLibro(Libro bookToFind) { return esisteLibro(bookToFind.getIndex()); }
+
     public boolean esisteLibro(int bookToFind) {
         for (Libro book : books)
             if (book.getIndex() == bookToFind)
