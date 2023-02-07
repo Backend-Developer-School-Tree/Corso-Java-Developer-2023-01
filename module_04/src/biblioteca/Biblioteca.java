@@ -5,48 +5,65 @@ import java.util.Comparator;
 
 public class Biblioteca {
 
-    private Libro[] books;
+    private Libro[] libri;
 
     public Biblioteca(Libro[] books) {
-        this.books = books;
-        this.sortBooks();
-        // this.sortBooks2();
+        this.libri = books;
+        this.ordinaLibri();
+        // this.ordinaLibri2();
     }
 
     public boolean esisteLibro(Libro bookToFind) { return esisteLibro(bookToFind.getIndex()); }
 
     public boolean esisteLibro(int bookToFind) {
-        for (Libro book : books)
-            if (book.getIndex() == bookToFind)
+        for (Libro libro : libri)
+            if (libro.getIndex() == bookToFind)
                 return true;
         return false;
     }
 
-    public Libro[] getLibriOrdinati() { return books; }
+    public Libro[] getLibriOrdinati() { return libri; }
 
     public int[] getIndiciLibriOrdinati() {
         Libro[] orderedBooks = getLibriOrdinati();
         int[] bookIndexes = new int[orderedBooks.length];
-        for (int i = 0; i < orderedBooks.length; i++) bookIndexes[i] = orderedBooks[i].getIndex();
+        for (int i = 0; i < orderedBooks.length; i++)
+            bookIndexes[i] = orderedBooks[i].getIndex();
         return bookIndexes;
+    }
+
+    /**
+     * Aggiunge un libro all'array di libri della biblioteca e mantiene l'ordinamento in base agli indici
+     * @param libro libro da aggiungere nella biblioteca
+     */
+    public void addLibro(Libro libro) {
+        // 1. estendere l'array
+        Libro[] newLibri = new Libro[libri.length + 1];
+        // 2. copiare tutti gli elementi
+        for (int i = 0; i < libri.length; i++)
+            newLibri[i] = libri[i];
+        // 3. aggiungere il nuovo libro
+        newLibri[libri.length] = libro;
+        // 4. ordinare nuovamente l'array di libri
+        ordinaLibri();
     }
 
     /**
      * Ordina gli indici dei libri tramite l'algoritmo Selection Sort (https://en.wikipedia.org/wiki/Selection_sort).
      * Questo algoritmo è poco efficiente, in quanto per un array di lunghezza n effettua sempre n*n confronti.
      */
-    private void sortBooks() {
-        for (int i = 0; i < books.length - 1; i++)
+    private void ordinaLibri() {
+        for (int i = 0; i < libri.length - 1; i++)
         {
             int minIndex = i;
 
-            for (int j = i + 1; j < books.length; j++)
-                if (books[j].getIndex() < books[minIndex].getIndex())
+            for (int j = i + 1; j < libri.length; j++)
+                if (libri[j].getIndex() < libri[minIndex].getIndex())
                     minIndex = j;
 
-            Libro minIndexBook = books[minIndex];
-            books[minIndex] = books[i];
-            books[i] = minIndexBook;
+            Libro minIndexBook = libri[minIndex];
+            libri[minIndex] = libri[i];
+            libri[i] = minIndexBook;
         }
     }
 
@@ -56,10 +73,17 @@ public class Biblioteca {
      * per ordinare in base al valore di getIndex della classe Libro (Libro::getIndex).
      * Vedremo la classe Comparator e come utilizzarla nel dettaglio dal modulo 6 in poi.
      */
-    private void sortBooks2() { Arrays.sort(books, Comparator.comparing(Libro::getIndex)); }
+    private void ordinaLibri2() { Arrays.sort(libri, Comparator.comparing(Libro::getIndex)); }
 
     public static void main(String[] args) {
-        System.out.println(new Libro[0].length);
+        Libro lib = new Libro(1, "Libro bello", "Andrea");
+        Libro lib2 = new Libro(2, "Libro bello 2", "Andrea");
+
+        Biblioteca bib = new Biblioteca(new Libro[]{lib, lib2});
+
+        System.out.println(bib.esisteLibro(1));
+        System.out.println(bib.esisteLibro(lib));
+
         Libro[] books = new Libro[]{
                 new Libro(123, "Luciana Litizzetto", "I dolori del giovane Programmatore"),
                 new Libro(4, "Super Mario", "Errori da non ripetere"),
