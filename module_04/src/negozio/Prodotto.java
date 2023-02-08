@@ -46,6 +46,11 @@ public class Prodotto {
         this.quantity += quantity;
     }
 
+    /* questo metodo decrementa la quantità di un prodotto */
+    public void decreaseQuantity(int quantity) {
+        this.quantity -= quantity;
+    }
+
     // questo metodo aggiorna di 1 la quantità disponibile del prodotto
     public void addSingleQuantity() {
         this.quantity++;

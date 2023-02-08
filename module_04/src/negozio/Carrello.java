@@ -54,6 +54,12 @@ public class Carrello {
         this.indice++;
     }
 
-
+    public void stampaCarrello() {
+        for (int i = 0; i < prodotti.length; i++) {
+            if (prodotti[i] == null) continue;
+            System.out.println(prodotti[i].getNome() + " : " + quantita[i]);
+        }
+    }
 
 }
+
