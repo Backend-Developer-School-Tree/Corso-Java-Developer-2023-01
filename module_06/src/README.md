@@ -30,12 +30,14 @@ Questa classe avrà tra gli attributi i personaggi stessi e implementerà al pro
 combatti() che simulerà un combattimento. Il metodo eseguirà i seguenti passaggi:
 
 __1)__ Sceglie a caso il combattente che inizierà per primo.
+
 __2)__ A turno, i combatteni scaglieranno un attacco preso random dalla lista dei suoi attacchi, calcolerà
 randomicamente se l’attacco andrà a segno o meno, e se l’attacco va a segno infligge danno
 all’avversario pari al danno che l’attacco infligge moltiplicato per la resistenza fisica dell’avversario
 (quindi più questo valore per un personaggio è vicino allo 0 più è resistente, più e vicino ad 1 meno
 è resistente). Ad esempio, se Goku riesce ad infliggere un attacco “Kamehameha” a Majin-Bu che
 infligge 50 danni, se Majin-Bu ha una resistenza pari a 0.3 il danno inflitto sarà 50*0.3 = 15.
+
 __3)__ Il combattimento termina quando uno dei due personaggi raggiungerà un numero di punti vita <=
 0. In tal caso il combattimento finisce e i punti vita dei personaggi vengono ripristinati al massimo.
 
