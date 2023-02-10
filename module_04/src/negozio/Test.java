@@ -56,6 +56,9 @@ public class Test {
         System.out.println(c3.checkout(DayOfWeek.MERCOLEDI, false));
         System.out.println("----------------------------------");
         Supermercato.stampaProdotti();
+
+        Comparable[] array_oggetti_comparabili = {p1, p2, c1, c2};
+        Comparable oggetto_comparabile = p1;
     }
 
 }

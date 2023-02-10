@@ -1,6 +1,6 @@
 package negozio;
 
-public class Cliente {
+public class Cliente implements Comparable {
 
     // attributi
     private int eta;
@@ -122,4 +122,8 @@ public class Cliente {
         return prezzo_tot / nMesi;
     }
 
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
 }

@@ -1,6 +1,6 @@
 package negozio;
 
-public class Prodotto {
+public class Prodotto implements Comparable {
 
     // attributi
     private String nome;
@@ -64,5 +64,11 @@ public class Prodotto {
         Prodotto new_p = (Prodotto) obj; // questa operazione si chiama casting
         if (this.nome.equals(new_p.nome)) return true;
         return false;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }
