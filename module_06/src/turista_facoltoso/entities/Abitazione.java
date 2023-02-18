@@ -17,9 +17,10 @@ public class Abitazione {
     private int piano;
     private LocalDate inizioDisp;
     private LocalDate fineDisp;
+    private Integer idHost;
 
     // costruttore
-    public Abitazione(String nome, String indirizzo, double prezzo, int nLocali, int nPostiLetto, int piano, LocalDate inizioDisp, LocalDate fineDisp) {
+    public Abitazione(String nome, String indirizzo, double prezzo, int nLocali, int nPostiLetto, int piano, LocalDate inizioDisp, LocalDate fineDisp, int idHost) {
         this.id = idTot++;
         this.nome = nome;
         this.indirizzo = indirizzo;
@@ -27,9 +28,9 @@ public class Abitazione {
         this.nLocali = nLocali;
         this.nPostiLetto = nPostiLetto;
         this.piano = piano;
-        // qui metterò un'eccezione
         this.inizioDisp = inizioDisp;
         this.fineDisp = fineDisp;
+        this.idHost = idHost;
     }
 
     // getter
@@ -42,6 +43,7 @@ public class Abitazione {
     public int getPiano() { return piano; }
     public LocalDate getInizioDisp() { return inizioDisp; }
     public LocalDate getFineDisp() { return fineDisp; }
+    public int getHost() { return idHost; }
 
     // setter
 

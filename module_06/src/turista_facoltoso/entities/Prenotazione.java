@@ -15,6 +15,7 @@ public class Prenotazione {
     private int idUtente;
     private int idAbitazione;
     private LocalDateTime istantePren;
+    private int idFeedback;
 
     // costruttore
     public Prenotazione(LocalDate inizioPren, LocalDate finePren, int idUtente, int idAbitazione) {
