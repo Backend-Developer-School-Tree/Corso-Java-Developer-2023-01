@@ -19,6 +19,8 @@ public class Database {
     private static HashMap<Integer, HashSet<Integer>> prenotazioniRicevute = new HashMap<>();
     // mappa tra utenti e prenotazioni effettuate dall'utente
     private static HashMap<Integer, HashSet<Integer>> prenotazioniEffettuate = new HashMap<>();
+    // questa mappa è tra i codici delle abitazioni e l'insieme di tutte le prenotazioni effettuate su di essa
+    private static HashMap<Integer, HashSet<Integer>> prenotazioniAbitazioni = new HashMap<>();
 
     // getter
     public static HashMap<Integer, Abitazione> getAbitazioni() { return abitazioni; }
@@ -28,9 +30,11 @@ public class Database {
     public static HashMap<Integer, HashSet<Integer>> getPrenotazioniRicevute() { return prenotazioniRicevute; }
     public static HashMap<Integer, Prenotazione> getPrenotazioni() { return prenotazioni; }
     public static HashMap<Integer, Utente> getUtenti() { return utenti; }
+    public static HashMap<Integer, HashSet<Integer>> getPrenotazioniAbitazioni() { return prenotazioniAbitazioni; }
 
     public static void addAbitazione(Abitazione ab) {
         abitazioni.put(ab.getId(), ab);
+        prenotazioniAbitazioni.put(ab.getId(), new HashSet<>());
         int idHost = ab.getHost();
         if (abitazioniHost.containsKey(idHost)) {
             HashSet<Integer> abitazioniVecchie = abitazioniHost.get(idHost);
@@ -79,6 +83,10 @@ public class Database {
             prenotazioniUtente.add(pr.getId());
             prenotazioniEffettuate.put(utente, prenotazioniUtente);
         }
+        // la aggiungo anche nella mappa abitazioni -> insieme di prenotazioni
+        HashSet<Integer> prenotazioniAbitazione = prenotazioniAbitazioni.get(pr.getIdAbitazione());
+        prenotazioniAbitazione.add(pr.getId());
+        prenotazioniAbitazioni.put(abitazionePrenotata.getId(), prenotazioniAbitazione);
     }
 
     public static void removePrenotazione(Prenotazione pr) {
@@ -93,6 +101,9 @@ public class Database {
         HashSet<Integer> prenotazioniHost = prenotazioniRicevute.get(codiceHost);
         prenotazioniHost.remove(ab.getId());
         prenotazioniRicevute.put(codiceHost, prenotazioniHost);
+        HashSet<Integer> prenotazioniAbitazione = prenotazioniAbitazioni.get(pr.getIdAbitazione());
+        prenotazioniAbitazione.remove(pr.getId());
+        prenotazioniAbitazioni.put(pr.getIdAbitazione(), prenotazioniAbitazione);
     }
 
     public static void addFeedback(Feedback fb) { feedbacks.put(fb.getId(), fb); }

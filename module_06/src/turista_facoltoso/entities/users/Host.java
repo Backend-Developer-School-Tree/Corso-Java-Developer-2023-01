@@ -39,7 +39,11 @@ public class Host extends Utente {
 
     public void removeAbitazione(int idAbitazione) { Database.removeAbitazione(idAbitazione); }
 
-    public void cambiaDisponibilita() {}
+    public void cambiaDisponibilita(int idAbitazione, LocalDate newInizio, LocalDate newFine) {
+        Abitazione ab = Database.getAbitazioni().get(idAbitazione);
+        ab.setInizioDisp(newInizio);
+        ab.setFineDisp(newFine);
+    }
 
     // questo metodo permette ad un host di rimuovere una prenotazione a carico di una sua abitazione
     public void removePrenotazioneByHost(int idPren) {
