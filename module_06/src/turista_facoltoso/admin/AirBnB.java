@@ -3,8 +3,11 @@ package turista_facoltoso.admin;
 import turista_facoltoso.database.Database;
 import turista_facoltoso.entities.Abitazione;
 import turista_facoltoso.entities.Prenotazione;
+import turista_facoltoso.entities.users.Host;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.HashSet;
 
 public class AirBnB {
@@ -37,6 +40,76 @@ public class AirBnB {
             if ( !(inizio.isAfter(pr.getFinePren()) || fine.isBefore(pr.getInizioPren()))) second = false;
         }
         return first && second;
+    }
+
+    // funzionalità
+    // 1) ottenere le abitazioni corrispondente ad un certo codice host
+    public static HashSet<Abitazione> abitazioniHost(int codiceHost) {
+        HashSet<Abitazione> abitazioni = new HashSet<>();
+        HashSet<Integer> abHost = Database.getAbitazioniHost().get(codiceHost);
+        for (Integer codiceAb : abHost) {
+            Abitazione ab = Database.getAbitazioni().get(codiceAb);
+            abitazioni.add(ab);
+        }
+        return abitazioni;
+    }
+
+    // 2) ottenere l'ultima prenotazione dato un id utente
+    public static Prenotazione lastPrenotazione(int idUtente) {
+        HashSet<Integer> prenotazioniUtente = Database.getPrenotazioniEffettuate().get(idUtente);
+        Prenotazione pMax = null;
+        LocalDateTime dataMax = null;
+        for (Integer codicePren : prenotazioniUtente) {
+            Prenotazione p = Database.getPrenotazioni().get(codicePren);
+            if (pMax == null) {
+                pMax = p;
+                dataMax = p.getIstantePren();
+            }
+            else {
+                if (p.getIstantePren().isAfter(dataMax)) {
+                    pMax = p;
+                    dataMax = p.getIstantePren();
+                }
+            }
+        }
+        return pMax;
+    }
+
+    // 3) ottenere l'abitazione più gettonata nell'ultimo mese
+    public static Abitazione abitazioneGettonata() {
+        Abitazione ab = null;
+        int maxPren = 0;
+        for (Integer codiceAb : Database.getPrenotazioniAbitazioni().keySet()) {
+            HashSet<Integer> prenotazioniAb = Database.getPrenotazioniAbitazioni().get(codiceAb);
+            HashSet<Integer> lastMonth = new HashSet<>();
+            for (Integer codicePren : prenotazioniAb) {
+                Prenotazione p = Database.getPrenotazioni().get(codicePren);
+                LocalDateTime istantePren = p.getIstantePren();
+                LocalDateTime oneMonthAgo = LocalDateTime.now().minusMonths(1);
+                if (istantePren.isAfter(oneMonthAgo)) {
+                    lastMonth.add(codicePren);
+                }
+            }
+            if (lastMonth.size() > maxPren) {
+                ab = Database.getAbitazioni().get(codiceAb);
+                maxPren = lastMonth.size();
+            }
+        }
+        return ab;
+    }
+
+    // 4) ottenere gli host con più prenotazioni nell'ultimo mese
+
+    // 5) ottenere tutti i super-host
+    public static HashSet<Host> superHost() {
+        HashSet<Host> superHosts = new HashSet<>();
+        for (Integer codiceHost : Database.getPrenotazioniRicevute().keySet()) {
+            Host h = (Host) Database.getUtenti().get(codiceHost);
+            if ( Database.getPrenotazioniRicevute().get(codiceHost).size() >= 100 ) {
+                superHosts.add(h);
+            }
+        }
+        return superHosts;
     }
 
 }
