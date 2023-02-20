@@ -95,4 +95,7 @@ public class Database {
         prenotazioniRicevute.put(codiceHost, prenotazioniHost);
     }
 
+    public static void addFeedback(Feedback fb) { feedbacks.put(fb.getId(), fb); }
+    public static void removeFeedback(Feedback fb) { feedbacks.remove(fb.getId()); }
+
 }

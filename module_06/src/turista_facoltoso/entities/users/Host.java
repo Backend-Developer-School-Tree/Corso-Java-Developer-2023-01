@@ -50,12 +50,55 @@ public class Host extends Utente {
         else { System.out.println("Non puoi rimuovere una prenotazione non tua"); }
     }
 
-    public HashSet<Prenotazione> prenotazioniHost() { return null; }
+    // questo metodo ritorna tutte le prenotazioni associate all'host
+    public HashSet<Prenotazione> prenotazioniHost() {
+        HashSet<Integer> idPrenotazioniRicevute = Database.getPrenotazioniRicevute().get(this.id);
+        HashSet<Prenotazione> prenotazioniRicevute = new HashSet<>();
+        for (Integer idPren : idPrenotazioniRicevute) {
+            Prenotazione pr = Database.getPrenotazioni().get(idPren);
+            prenotazioniRicevute.add(pr);
+        }
+        return prenotazioniRicevute;
+    }
 
-    public HashSet<Prenotazione> prenotazioniHost(int idAbitazione) { return null; }
+    // questo metodo ritorna tutte le prenotazioni di una certa abitazione dell'host
+    public HashSet<Prenotazione> prenotazioniHost(int idAbitazione) {
+        HashSet<Integer> idPrenotazioniRicevute = Database.getPrenotazioniRicevute().get(this.id);
+        HashSet<Prenotazione> prenotazioniRicevute = new HashSet<>();
+        for (Integer idPren : idPrenotazioniRicevute) {
+            Prenotazione pr = Database.getPrenotazioni().get(idPren);
+            if (pr.getIdAbitazione() == idAbitazione) {
+                prenotazioniRicevute.add(pr);
+            }
+        }
+        return prenotazioniRicevute;
+    }
 
-    public double mediaHost() { return 0.0; }
+    // questo metodo ritorna la media totale di tutti i voti ricevuti dall'host in una qualsiasi prenotazione
+    public double mediaHost() {
+        HashSet<Integer> prenotazioniHost = Database.getPrenotazioniRicevute().get(this.id); // prendo le prenotazioni ricevute da questo host
+        double media = 0.0;
+        int totFeedback = 0;
+        for (Integer codicePren : prenotazioniHost) {
+            Prenotazione pr = Database.getPrenotazioni().get(codicePren);
+            if (pr.getIdFeedback() == 0)  continue;
+            media += Database.getFeedbacks().get(pr.getIdFeedback()).getVoto().getPunteggio();
+            totFeedback++;
+        }
+        return media / totFeedback;
+    }
 
-    public double mediaAbitazione(int idAbitazione) { return 0.0; }
+    public double mediaAbitazione(int idAbitazione) {
+        HashSet<Integer> prenotazioniHost = Database.getPrenotazioniRicevute().get(this.id); // prendo le prenotazioni ricevute da questo host
+        double media = 0.0;
+        int totFeedback = 0;
+        for (Integer codicePren : prenotazioniHost) {
+            Prenotazione pr = Database.getPrenotazioni().get(codicePren);
+            if (pr.getIdFeedback() == 0 || pr.getIdAbitazione() != idAbitazione)  continue;
+            media += Database.getFeedbacks().get(pr.getIdFeedback()).getVoto().getPunteggio();
+            totFeedback++;
+        }
+        return media / totFeedback;
+    }
 
 }

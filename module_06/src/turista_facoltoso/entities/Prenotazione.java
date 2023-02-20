@@ -34,10 +34,12 @@ public class Prenotazione {
     public int getIdUtente() { return idUtente; }
     public int getIdAbitazione() { return idAbitazione; }
     public LocalDateTime getIstantePren() { return istantePren; }
+    public int getIdFeedback() { return idFeedback; }
 
     // setter
     public void setInizioPren(LocalDate inizioPren) { this.inizioPren = inizioPren; }
     public void setFinePren(LocalDate finePren) { this.finePren = finePren; }
     public void setIdUtente(int idUtente) { this.idUtente = idUtente; }
     public void setIdAbitazione(int idAbitazione) { this.idAbitazione = idAbitazione; }
+    public void setIdFeedback(int idFeedback) { this.idFeedback = idFeedback; }
 }
