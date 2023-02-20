@@ -1,6 +1,7 @@
 package turista_facoltoso.entities.users;
 
 import turista_facoltoso.admin.AirBnB;
+import turista_facoltoso.database.Database;
 import turista_facoltoso.entities.Abitazione;
 import turista_facoltoso.entities.Prenotazione;
 import turista_facoltoso.enumerators.Voto;
@@ -43,12 +44,22 @@ public class Utente {
 
     // metodi
     public void addPrenotazione(int idAbitazione, LocalDate inizioPren, LocalDate finePren) {
-        // da completare
-        Prenotazione p = new Prenotazione(inizioPren, finePren, this.id, idAbitazione);
+        if (AirBnB.isDisponibile(idAbitazione, inizioPren, finePren)) {
+            Prenotazione p = new Prenotazione(inizioPren, finePren, this.id, idAbitazione);
+            Database.addPrenotazione(p);
+        }
+        else {
+            System.out.println("Abitazione non disponibile in quel periodo di tempo!");
+        }
+
         // da completare
     }
 
-    public void removePrenotazione(int idPrenotazione) {}
+    public void removePrenotazione(int idPrenotazione) {
+        Prenotazione pr = Database.getPrenotazioni().get(idPrenotazione);
+        if (pr.getIdUtente() == this.id) { Database.removePrenotazione(pr); } // rimuovo solo se la prenotazione è fatta dall'utente
+        else { System.out.println("Non puoi rimuovere una prenotazione non tua!"); }
+    }
 
     public void addFeedback(String titolo, String commento, Voto voto, int idPren) {
 
@@ -61,8 +72,8 @@ public class Utente {
     public HashSet<Prenotazione> prenotazioniEffettuate() {
         return null;
     }
-    public void visualizzaAbitazioniDisponibili() {
-        for (Abitazione ab : AirBnB.abitazioniDisponibili()) {
+    public void visualizzaAbitazioniDisponibili(LocalDate inizio, LocalDate fine) {
+        for (Abitazione ab : AirBnB.abitazioniDisponibili(inizio, fine)) {
             System.out.println(ab);
         }
     }

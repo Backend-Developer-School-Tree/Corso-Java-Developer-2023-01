@@ -41,7 +41,14 @@ public class Host extends Utente {
 
     public void cambiaDisponibilita() {}
 
-    public void removePrenotazione() {}
+    // questo metodo permette ad un host di rimuovere una prenotazione a carico di una sua abitazione
+    public void removePrenotazioneByHost(int idPren) {
+        Prenotazione pr = Database.getPrenotazioni().get(idPren);
+        int idAbitazione = pr.getIdAbitazione();
+        HashSet<Integer> abHost = Database.getAbitazioniHost().get(this.id);
+        if (abHost.contains(idAbitazione)) { Database.removePrenotazione(pr); }
+        else { System.out.println("Non puoi rimuovere una prenotazione non tua"); }
+    }
 
     public HashSet<Prenotazione> prenotazioniHost() { return null; }
 
