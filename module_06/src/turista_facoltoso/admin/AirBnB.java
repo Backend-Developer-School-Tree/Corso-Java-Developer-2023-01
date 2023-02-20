@@ -7,8 +7,9 @@ import turista_facoltoso.entities.users.Host;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.TreeMap;
 
 public class AirBnB {
 
@@ -40,6 +41,16 @@ public class AirBnB {
             if ( !(inizio.isAfter(pr.getFinePren()) || fine.isBefore(pr.getInizioPren()))) second = false;
         }
         return first && second;
+    }
+
+    // questo metodo prende in input una prenotazione e ritorna true se è stata effettuata nell'ultimo mese
+    public static boolean prenLastMonth(Prenotazione p) {
+        LocalDateTime istantePren = p.getIstantePren();
+        LocalDateTime oneMonthAgo = LocalDateTime.now().minusMonths(1);
+        if (istantePren.isAfter(oneMonthAgo)) {
+            return true;
+        }
+        return false;
     }
 
     // funzionalità
@@ -84,11 +95,7 @@ public class AirBnB {
             HashSet<Integer> lastMonth = new HashSet<>();
             for (Integer codicePren : prenotazioniAb) {
                 Prenotazione p = Database.getPrenotazioni().get(codicePren);
-                LocalDateTime istantePren = p.getIstantePren();
-                LocalDateTime oneMonthAgo = LocalDateTime.now().minusMonths(1);
-                if (istantePren.isAfter(oneMonthAgo)) {
-                    lastMonth.add(codicePren);
-                }
+                if (prenLastMonth(p))  lastMonth.add(codicePren);
             }
             if (lastMonth.size() > maxPren) {
                 ab = Database.getAbitazioni().get(codiceAb);
@@ -98,7 +105,40 @@ public class AirBnB {
         return ab;
     }
 
-    // 4) ottenere gli host con più prenotazioni nell'ultimo mese
+    // 4) ottenere gli host con più prenotazioni nell'ultimo mese (ne torniamo 5)
+    public static HashSet<Host> hostPiuPrenotazioni() {
+        TreeMap<Integer, HashSet<Host>> mappaHost = new TreeMap<>(Collections.reverseOrder());
+        HashSet<Host> result = new HashSet<>();
+        for (Integer idHost : Database.getPrenotazioniRicevute().keySet()) {
+            Host h = (Host) Database.getUtenti().get(idHost);
+            HashSet<Integer> lastMonth = new HashSet<>();
+            HashSet<Integer> prenotazioniHost = Database.getPrenotazioniRicevute().get(idHost);
+            for (Integer codicePren : prenotazioniHost) {
+                Prenotazione p = Database.getPrenotazioni().get(codicePren);
+                if (prenLastMonth(p))  lastMonth.add(codicePren);
+            }
+            if (mappaHost.containsKey(lastMonth.size())) {
+                HashSet<Host> vecchioValore = mappaHost.get(lastMonth.size());
+                vecchioValore.add(h);
+                mappaHost.put(lastMonth.size(), vecchioValore);
+            }
+            else {
+                HashSet<Host> vecchioValore = new HashSet<>();
+                vecchioValore.add(h);
+                mappaHost.put(lastMonth.size(), vecchioValore);
+            }
+        } // alla fine di questo for abbiamo la treemap completa
+        for (Integer punteggio : mappaHost.keySet()) {
+            HashSet<Host> hostPunteggio = mappaHost.get(punteggio);
+            for (Host h : hostPunteggio) {
+                result.add(h);
+                if (result.size() == 5) {
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
 
     // 5) ottenere tutti i super-host
     public static HashSet<Host> superHost() {
