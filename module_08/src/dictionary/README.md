@@ -8,17 +8,17 @@ Esempio:
 - c -> calcio -> sport
 - c -> calcio -> elemento chimico
 
-Devono essere possibili le seguenti operazioni:
-- inserisci parola (con almeno un significato associato)
-- aggiungi significato per una certa parola
-- stampa dizionario, che ritorna una stringa contenente ogni parola e significato
+Devono essere possibili almeno le seguenti operazioni:
+- `inserisciParola`: inserisce una parola, con almeno un significato associato
+- `aggiungiSignificato`: aggiunge il significato per una certa parola
+- `toString`: ritorna una stringa contenente ogni parola e significato presente nel dizionario
   (in ordine lessicografico ascendente in base alla lettera) nella forma:
 
 ```
  lettera1:[parola1: (significato1;significato2;...;), parola2: (significato1;...;...;)]
- lettera2:[parola1: significato1;significato2;...;), parola2: (significato1;...;...;)]
+ lettera2:[parola1: (significato1;significato2;...;), parola2: (significato1;...;...;)]
  ...
- letteraN:[parola1: significato1;significato2;...;),parola2: (significato1;...;...;)]
+ letteraN:[parola1: (significato1;significato2;...;),parola2: (significato1;...;...;)]
 ```  
 
 Suggerimenti sulle eccezioni da prevedere:
