@@ -21,7 +21,7 @@ Devono essere possibili le seguenti operazioni:
  letteraN:[parola1: significato1;significato2;...;),parola2: (significato1;...;...;)]
 ```  
 
-Prevedere il sollevamento delle seguenti eccezioni:
+Suggerimenti sulle eccezioni da prevedere:
 - `LetterNotPresentException`: lanciata nel caso la lettera da cercare o rimuovere non sia contenuta nella struttura dati
 - `WordNotPresentException`: lanciata nel caso in cui la parola da cercare o rimuovere non sia contenuta
 - `ElementAlreadyContainedException:` lanciata nel caso in cui la chiave da aggiungere sia già contenuta
