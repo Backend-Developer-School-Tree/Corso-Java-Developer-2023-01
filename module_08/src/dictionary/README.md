@@ -26,4 +26,4 @@ letteraN: [parola1: (significato1;significato2;...;), parola2: (significato1;...
 
 Suggerimenti sulle eccezioni da prevedere:
 - `WordNotPresentException`: lanciata nel caso in cui la parola da cercare o rimuovere non sia contenuta
-- `ElementAlreadyContainedException:` lanciata nel caso in cui la chiave da aggiungere sia già contenuta
+- `MeaningAlreadyExistingException:` lanciata nel caso in cui il significato che vogliamo aggiungere già esista
