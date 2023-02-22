@@ -14,9 +14,9 @@ This repo collects all the exercises produced and gathered by [Marco Adriani](ht
 | 4      | Object-Oriented Programming  | [Esercizi](module_04/src/)                                |
 | 5      | Ereditarietà Base            | [Esercizi](module_05/src)                                 |
 | 6      | Ereditarietà Avanzata        | [Esercizi](module_06/src)                                 |
-| 7      | Generics & Collections       | [Esercizi](module_07/src)                                 |
+| 7      | Generics & Collections       | [Esempi](module_07/src/esempi), [Esercizi](module_07/src) |
 | 8      | Eccezioni e annotazioni      | [Esercizi](module_08/src)                                 |
-| 9      | Input & Output               | [Esempi](module_09/src/Esempi), [Esercizi](module_09/src) |
+| 9      | Input & Output               | [Esempi](module_09/src/esempi), [Esercizi](module_09/src) |
 <!--
 | 10     | Design Patterns              | [Esempi](module_10/src/Esempi)                                                             |
 | 12     | Java Stream                  | [Esercizi](module_12/src)                                                                  |
