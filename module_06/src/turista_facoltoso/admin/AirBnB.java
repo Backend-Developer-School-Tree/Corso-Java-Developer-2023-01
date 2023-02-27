@@ -13,6 +13,18 @@ import java.util.TreeMap;
 
 public class AirBnB {
 
+    private static AirBnB internalInstance;
+    private LocalDateTime momentoOfCreation;
+
+    private AirBnB() {}
+
+    public static AirBnB getInstance() {
+        if (internalInstance != null) {
+            return internalInstance;
+        }
+        internalInstance = new AirBnB();
+        return internalInstance;
+    }
     public static HashSet<Abitazione> abitazioniDisponibili(LocalDate inizio, LocalDate fine) {
         HashSet<Abitazione> abDisponibili = new HashSet<>(); // creo un hashset
         for (Integer codiceAb : Database.getAbitazioni().keySet()) { // per ogni abitazione nel db
@@ -44,7 +56,7 @@ public class AirBnB {
     }
 
     // questo metodo prende in input una prenotazione e ritorna true se è stata effettuata nell'ultimo mese
-    public static boolean prenLastMonth(Prenotazione p) {
+    public boolean prenLastMonth(Prenotazione p) {
         LocalDateTime istantePren = p.getIstantePren();
         LocalDateTime oneMonthAgo = LocalDateTime.now().minusMonths(1);
         if (istantePren.isAfter(oneMonthAgo)) {
@@ -55,7 +67,7 @@ public class AirBnB {
 
     // funzionalità
     // 1) ottenere le abitazioni corrispondente ad un certo codice host
-    public static HashSet<Abitazione> abitazioniHost(int codiceHost) {
+    public HashSet<Abitazione> abitazioniHost(int codiceHost) {
         HashSet<Abitazione> abitazioni = new HashSet<>();
         HashSet<Integer> abHost = Database.getAbitazioniHost().get(codiceHost);
         for (Integer codiceAb : abHost) {
@@ -66,7 +78,7 @@ public class AirBnB {
     }
 
     // 2) ottenere l'ultima prenotazione dato un id utente
-    public static Prenotazione lastPrenotazione(int idUtente) {
+    public Prenotazione lastPrenotazione(int idUtente) {
         HashSet<Integer> prenotazioniUtente = Database.getPrenotazioniEffettuate().get(idUtente);
         Prenotazione pMax = null;
         LocalDateTime dataMax = null;
@@ -87,7 +99,7 @@ public class AirBnB {
     }
 
     // 3) ottenere l'abitazione più gettonata nell'ultimo mese
-    public static Abitazione abitazioneGettonata() {
+    public Abitazione abitazioneGettonata() {
         Abitazione ab = null;
         int maxPren = 0;
         for (Integer codiceAb : Database.getPrenotazioniAbitazioni().keySet()) {
@@ -106,7 +118,7 @@ public class AirBnB {
     }
 
     // 4) ottenere gli host con più prenotazioni nell'ultimo mese (ne torniamo 5)
-    public static HashSet<Host> hostPiuPrenotazioni() {
+    public HashSet<Host> hostPiuPrenotazioni() {
         TreeMap<Integer, HashSet<Host>> mappaHost = new TreeMap<>(Collections.reverseOrder());
         HashSet<Host> result = new HashSet<>();
         for (Integer idHost : Database.getPrenotazioniRicevute().keySet()) {
@@ -141,7 +153,7 @@ public class AirBnB {
     }
 
     // 5) ottenere tutti i super-host
-    public static HashSet<Host> superHost() {
+    public HashSet<Host> superHost() {
         HashSet<Host> superHosts = new HashSet<>();
         for (Integer codiceHost : Database.getPrenotazioniRicevute().keySet()) {
             Host h = (Host) Database.getUtenti().get(codiceHost);
