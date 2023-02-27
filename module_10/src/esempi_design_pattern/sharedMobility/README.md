@@ -44,3 +44,8 @@ HINT 1: Non esiste "la soluzione" di questo esercizio, è possibile tirare fuori
 HINT 2: Se avete una domanda da fare sul sistema, fatela sul canale discord, è più veloce e potrebbe essere d'aiuto per altri gruppi.
 
 HINT 3: Se pensate che una certa libreria esterna può esservi utile per risolvere un determinato problema...Usatela!
+
+# Update
+
+- Implementare, tramite il design pattern Observer, un sistema che notifichi all'utente quando sia terminato un noleggio, stampando su console un messaggio che lo avvisi e indicando il prezzo del noleggio terminato.
+- Per tutti i metodi che aggiungono entità nel database (inserire un utente, inserire un veicolo, ecc.) implementare il disegn pattern builder.
