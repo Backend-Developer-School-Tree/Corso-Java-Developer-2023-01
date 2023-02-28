@@ -2,7 +2,6 @@ package esempi.observer;
 
 public class User implements Observer {
 
-    private ConnectionNotifier connectionNotifier;
     private String name;
     private String surname;
 
@@ -11,7 +10,6 @@ public class User implements Observer {
         this.surname = surname;
         connectionNotifier.addObserver(this);
     }
-
 
     @Override
     public void notifyMe(Observable o, String message) {
