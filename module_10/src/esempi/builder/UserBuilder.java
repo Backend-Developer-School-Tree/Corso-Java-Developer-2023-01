@@ -1,4 +1,4 @@
-package esempi_design_pattern.builder;
+package esempi.builder;
 
 public class UserBuilder {
 

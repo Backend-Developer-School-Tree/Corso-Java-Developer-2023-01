@@ -45,7 +45,27 @@ HINT 2: Se avete una domanda da fare sul sistema, fatela sul canale discord, è 
 
 HINT 3: Se pensate che una certa libreria esterna può esservi utile per risolvere un determinato problema...Usatela!
 
-# Update
+## Bonus stage: design patterns
 
-- Implementare, tramite il design pattern Observer, un sistema che notifichi all'utente quando sia terminato un noleggio, stampando su console un messaggio che lo avvisi e indicando il prezzo del noleggio terminato.
-- Per tutti i metodi che aggiungono entità nel database (inserire un utente, inserire un veicolo, ecc.) implementare il disegn pattern builder.
+- Implementare, tramite il design pattern Observer/Observable, un sistema che notifichi all'utente quando sia terminato un noleggio, stampando su console un messaggio che lo avvisi e indicando il prezzo del noleggio terminato.
+- Per tutte le entità del database (utente, veicolo, ecc) implementare il design pattern Builder, e farne uso in tutti i metodi che aggiungono entità nel database (inserire un utente, inserire un veicolo, ecc.).
+
+## Bonus stage 2: lettura/scrittura file
+
+Aggiornare la classe Database per poter gestire un "database" in formato CSV, ovvero una serie di file di testo,
+uno per ogni entità del sistema (es. utenti, veicoli, ecc), in cui in ogni riga contiene le informazioni relative ad una
+specifica istanza di quell'entità separate da virgole (es. nel file degli utenti, ogni riga conterrà le informazioni di un diverso utente).
+Esempio:
+```
+ID,Nome,Cognome,Data di nascita
+1,Mario,Rossi,15/11/1968
+2,Luigi,Mario,26/03/1989
+3,Francesco,Totti,27/09/1976
+```
+La classe dovrà quindi prevedere le seguenti funzionalità:
+- Creazione a partire da dei percorsi a dei file CSV 
+    - nel caso siano già esistenti, caricando in memoria le informazioni che contengono
+    - altrimenti, creando dei nuovi file su cui scrivere successivamente
+- Aggiornamento del contenuto dei file ad ogni operazione di modifica (es. inserisci utente, rimuovi utente, modifica utente, ecc)
+ 
+Inoltre, è necessario implementare, tramite il design pattern Singleton, l'univocità delle istanze della classe Database, così da evitare conflitti di lettura/scrittura sul nostro "database" in formato CSV.  

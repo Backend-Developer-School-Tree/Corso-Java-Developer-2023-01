@@ -1,8 +1,4 @@
-package esempi_design_pattern.builder;
-
-import esempi_design_pattern.builder.User;
-import esempi_design_pattern.builder.UserBuilder;
-import esempi_design_pattern.observer.ConnectionNotifier;
+package esempi.builder;
 
 public class Main {
 
