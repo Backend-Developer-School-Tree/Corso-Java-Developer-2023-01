@@ -17,8 +17,8 @@ This repo collects all the exercises produced and gathered by [Marco Adriani](ht
 | 7      | Generics & Collections       | [Esempi](module_07/src/esempi), [Esercizi](module_07/src) |
 | 8      | Eccezioni e annotazioni      | [Esercizi](module_08/src)                                 |
 | 9      | Input & Output               | [Esempi](module_09/src/esempi), [Esercizi](module_09/src) |
+| 10     | Design Patterns              | [Esempi](module_10/src/esempi), [Esercizi](module_10/src) |
 <!--
-| 10     | Design Patterns              | [Esempi](module_10/src/Esempi)                                                             |
 | 12     | Java Stream                  | [Esercizi](module_12/src)                                                                  |
 | 16     | Database                     | [Esercizo AndiamoATeatro](module_16/AndiamoATeatro.pdf), [Esempi](module_16/src/main/java) |
 | 13     | API                          | [Esercizi](module_13/src)                                                                  |
