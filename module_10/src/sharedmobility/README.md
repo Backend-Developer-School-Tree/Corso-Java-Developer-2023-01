@@ -68,4 +68,4 @@ La classe dovrà quindi prevedere le seguenti funzionalità:
     - altrimenti, creando dei nuovi file su cui scrivere successivamente
 - Aggiornamento del contenuto dei file ad ogni operazione di modifica (es. inserisci utente, rimuovi utente, modifica utente, ecc)
  
-Inoltre, è necessario implementare, tramite il design pattern Singleton, l'univocità delle istanze della classe Database, così da evitare conflitti di lettura/scrittura sul nostro "database" in formato CSV.  
+Inoltre, è necessario implementare, tramite il design pattern Singleton, l'univocità delle istanze della classe Database, così da evitare conflitti di lettura/scrittura sul nostro "database" in formato CSV.
