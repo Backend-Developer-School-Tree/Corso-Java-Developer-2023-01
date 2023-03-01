@@ -26,3 +26,16 @@ Period.between(aDate, sixtyDaysBehind);
 `
 Nota: inserire eccezioni dove pensate siano opportune
 Nota: gestite tutto con le collection, nessun database (per ora!)
+
+## New stage
+- scrivere un metodo che presa in input una prenotazione calcoli il suo costo
+
+Scrivere inoltre le seguenti funzionalità usando degli stream:
+1) ottenere, dati in input una lista di oggetti prenotazione e un double n, il numero di prenotazioni con costo >= n.
+2) ottenere, data in input una lista di oggetti prenotazione, la lista di tutti gli utenti distinti che hanno effettuato 
+    almeno una prenotazione tra quelle in input.
+3) ottenere, dati in input una lista di oggetti prenotazione e un id utente, l'insieme delle prenotazioni effettuate dall'utente.
+4) ottenere, data una lista di abitazioni e un codice host, il numero di abitazioni di quell'host che hanno un numero di posti letto > 2.
+5) ottenere, a partire dalle informazioni del database e dato in input un codice host, il numero di abitazioni possedute da quell'host. (sulle mappe
+    non posso utilizzare direttamente uno stream, ma posso farlo sull'insieme delle chiavi o sulla collection di valori!)
+  
