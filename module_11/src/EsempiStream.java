@@ -1,10 +1,8 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class EsempiStream {
@@ -57,15 +55,15 @@ public class EsempiStream {
         // utilizziamo uno stream per contare le righe di un file di testo
         try {
             System.out.println("Il file di testo contiene questo numero di righe:");
-            long numeroRighe = Files.lines(Paths.get("testuccio.txt")).count();
+            long numeroRighe = Files.lines(Paths.get("module_11/resources/testuccio.txt")).count();
             System.out.println(numeroRighe);
             System.out.println("-----------------------------------------");
             System.out.println("Ora stampo riga per riga");
-            Files.lines(Paths.get("testuccio.txt")).forEach(System.out::println);
+            Files.lines(Paths.get("module_11/resources/testuccio.txt")).forEach(System.out::println);
             // ora voglio stampare tutte le lunghezze di ogni singola riga
             System.out.println("-------------------------------------");
             System.out.println("Quanto è lunga ogni riga?");
-            Files.lines(Paths.get("testuccio.txt")).map(riga -> riga.length()).forEach(System.out::println);
+            Files.lines(Paths.get("module_11/resources/testuccio.txt")).map(riga -> riga.length()).forEach(System.out::println);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -98,7 +96,7 @@ public class EsempiStream {
 
         System.out.println("-----------------------------------------");
         System.out.println("utilizziamo la funzione limit() per leggere solamente alcune righe del file");
-        Files.lines(Paths.get("testuccio.txt")).limit(3).forEach(System.out::println);
+        Files.lines(Paths.get("module_11/resources/testuccio.txt")).limit(3).forEach(System.out::println);
 
         System.out.println("-----------------------------------------");
         System.out.println("salviamo in un nuovo array, usando map, tutte le stringhe in maiuscolo");
@@ -119,6 +117,66 @@ public class EsempiStream {
             return fact;
         }).forEach(System.out::println);
 
+        System.out.println("--------------------------------------------------");
+        System.out.println("Torniamo una stringa con tutte le parole rese maiuscole concatenate con virgola e spazio");
+        String concat = paroleList.stream().map(s -> s.toUpperCase()).collect(Collectors.joining(", "));
+        System.out.println(concat);
+
+        System.out.println("----------------------------------------------------");
+        System.out.println("Prendiamo l'array di numeri e salviamo i risultati del fattoriale dentro una mappa numero = fattoriale(numero)");
+
+        Map<Integer, Long> fattoriali = numeri.stream().collect(Collectors.toMap(Function.identity(), EsempiStream::fattoriale));
+        System.out.println(fattoriali);
+
+        System.out.println("------------------------------------------------------");
+        System.out.println("Torniamo tramite un reduce il prodotto di tutti i numeri dell'array");
+        int prodotto = numeri.stream().reduce(1, (a, b) -> a*b);
+        System.out.println("il prodotto è: " + prodotto);
+
+        System.out.println("------------------------------------");
+        System.out.println("Concateniamo le stringhe con il reduce invece che con il Collectors.join");
+        String concatena = paroleList.stream().reduce("", EsempiStream::concatena).substring(2);
+        System.out.println(concatena);
+
+        System.out.println("-----------------------------------");
+        System.out.println("Testiamo i metodi anyMatch, allMatch, noneMatch");
+        boolean first = numeri.stream().anyMatch(n -> n % 5 == 0);
+        System.out.println("Esiste almento un numero divisibile per 5? " + first);
+        // boolean second = paroleList.stream().map(p -> p.length()).allMatch(len -> len >= 4);
+        boolean second = paroleList.stream().allMatch(p -> p.length() >= 4);
+        System.out.println("Tutte le parole sono almeno lunghe 4? " + second);
+        boolean third = paroleList.stream().noneMatch(p -> p.startsWith("j") || p.startsWith("J"));
+        System.out.println("è vero che nessuna delle parole inizia con la j? " + third);
+
+        System.out.println("---------------------------------------");
+        System.out.println("Testiamo il findFirst()");
+        Optional<String> result = paroleList.stream()
+                .filter(s -> Character.isLowerCase(s.charAt(0)))
+                .filter(s -> s.length() >= 5)
+                .findFirst();
+        System.out.println("La prima parola minuscola lunga almeno 5 è: " + result.get()); // result.get() perchè findFirst torna un Optional
+
+        List<String> paroleList2 = Arrays.asList("Roma", "Barcelona", "Paris", "Milan", "Naples", "London");
+        List<List<String>> tutteStringhe = Arrays.asList(paroleList, paroleList2);
+        System.out.println(tutteStringhe);
+
+        System.out.println("-------------------------------------");
+        System.out.println("Voglio stampare tutte le stringhe in entrambi gli array che iniziano con la m o M");
+        tutteStringhe.stream()
+                .flatMap(array -> array.stream())
+                .filter(s -> s.startsWith("M") || s.startsWith("m"))
+                .forEach(System.out::println);
+
+
+    }
+
+    public static long fattoriale(int n) {
+        if (n <= 1) return 1;
+        else return n * fattoriale(n-1);
+    }
+
+    public static String concatena(String s1, String s2) {
+        return s1 + ", " + s2;
     }
 
 }

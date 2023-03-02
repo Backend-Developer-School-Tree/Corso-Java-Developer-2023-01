@@ -7,9 +7,8 @@ import turista_facoltoso.entities.users.Host;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AirBnB {
 
@@ -164,4 +163,10 @@ public class AirBnB {
         return superHosts;
     }
 
+    // BONUS) raggruppare tutte le abitazioni in base ai posti letto che hanno
+    public Map<Integer, List<Abitazione>> abitazioniGroupByPostiLetto() {
+        Collection<Abitazione> abitazioni = Database.getAbitazioni().values();
+        return abitazioni.stream().collect(Collectors.groupingBy(Abitazione::getnPostiLetto));
+
+    }
 }

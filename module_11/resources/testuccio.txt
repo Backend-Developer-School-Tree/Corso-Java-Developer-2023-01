@@ -1,0 +1,6 @@
+ciao a tutti
+questo è un testo di prova
+inventato da Marco per farvi vedere
+come si crei uno stream di righe a partire dal file.
+è una cosa molto utile
+se ci pensate
