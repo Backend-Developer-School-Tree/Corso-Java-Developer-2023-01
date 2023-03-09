@@ -1,43 +1,42 @@
 package esempi.connectionhandler;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.Properties;
 
 public class ConnectionHandler implements AutoCloseable {
 
     public static final String DB_URL_PREFIX = "jdbc:postgresql://";
-    /**
-     * The host name of the server. Defaults to localhost.
-     */
-    public static final String DB_HOST = "localhost";
-    /**
-     * The port number the server is listening on.
-     * Defaults to the PostgreSQL® standard port number (5432).
-     */
-    public static final String DB_PORT = "5432";
-    /**
-     * The database name.
-     * The default is to connect to a database with the same name as the user name used to connect to the server.
-     */
-    public static final String DB_NAME = "AndiamoATeatro";
-    /**
-     * The database user on whose behalf the connection is being made.
-     */
-    public static final String DB_USER = "postgres";
-    /**
-     * The database user’s password.
-     */
-    public static final String DB_PASSWORD = "postgres";
 
-    private final Properties databaseProps = new Properties();
+    public static final Path propertiesPath = Paths.get("module_12", "src", "esempi", "connectionhandler", "config.properties");
 
     private static ConnectionHandler instance;
 
     private Connection connection;
 
+    private Properties dbProps;
+
     private ConnectionHandler() {
-        this.databaseProps.setProperty("user", DB_USER);
-        this.databaseProps.setProperty("password", DB_PASSWORD);
+        try (BufferedReader br = Files.newBufferedReader(propertiesPath))
+        {
+            // carichiamo le properties del database direttamente da file
+            this.dbProps = new Properties();
+            this.dbProps.load(br);
+
+            // sostituendo la precedente inizializzazione manuale
+            // this.dbProps.setProperty("user", DB_USER);
+            // this.dbProps.setProperty("password", DB_PASSWORD);
+
+            System.out.println("Host name: "     + dbProps.getProperty("host") + ":" + dbProps.getProperty("port"));
+            System.out.println("Database name: " + dbProps.getProperty("name"));
+            System.out.println("DB username: "   + dbProps.getProperty("user"));
+            System.out.println("DB password: "   + dbProps.getProperty("password"));
+        }
+        catch (IOException e) { e.printStackTrace(); }
 
         // Explicitly loading the driver is no longer required since Java 1.6
         // https://jdbc.postgresql.org/documentation/use/#loading-the-driver
@@ -51,12 +50,17 @@ public class ConnectionHandler implements AutoCloseable {
         return instance;
     }
 
-    public String getDatabaseUrl() { return DB_URL_PREFIX + DB_HOST + ":" + DB_PORT + "/" + DB_NAME; }
+    public String getDatabaseUrl() {
+        return DB_URL_PREFIX +
+                dbProps.getProperty("host") +
+                ":" + dbProps.getProperty("port") +
+                "/" + dbProps.getProperty("name");
+    }
 
     public Connection getConnection() throws SQLException {
         if (this.connection == null || this.connection.isClosed())
             // se la connessione non esiste o è chiusa, ne viene creata una nuova
-            this.connection = DriverManager.getConnection(getDatabaseUrl(), databaseProps);
+            this.connection = DriverManager.getConnection(getDatabaseUrl(), dbProps);
 
         return this.connection;
     }
@@ -100,7 +104,7 @@ public class ConnectionHandler implements AutoCloseable {
 
         PreparedStatement ps = conn.prepareStatement("SELECT id, nome, cognome FROM utente;");
         ResultSet rs = ps.executeQuery();
-        while (rs.next()) System.out.println(rs.getString("nome"));
+        // while (rs.next()) System.out.println(rs.getString("nome"));
 
         conn.close();
         ps.close();
@@ -112,7 +116,7 @@ public class ConnectionHandler implements AutoCloseable {
         ConnectionHandler ch = ConnectionHandler.getInstance();
         ps = ch.getPreparedStatement("SELECT * FROM utente;");
         rs = ps.executeQuery();
-        while (rs.next()) System.out.println(rs.getString("nome"));
+        // while (rs.next()) System.out.println(rs.getString("nome"));
 
         ch.closeConnection();
         ps.close();
