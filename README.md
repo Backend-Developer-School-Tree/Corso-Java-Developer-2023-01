@@ -23,7 +23,6 @@ This repo collects all the exercises produced and gathered by [Marco Adriani](ht
 <!--
 | 13     | API                          | [Esercizi](module_13/src)                                                                  |
 | 14     | Spring                       | [Esercizi](module_14/src)                                                                  |
-| 15     | Design Patterns              | [Esercizi](module_15/src)                                                                  |
 | 18     | Test                         | [Esercizi](module_18/src)                                                                  |
 -->
 
