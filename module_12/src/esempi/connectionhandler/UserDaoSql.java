@@ -25,13 +25,31 @@ public class UserDaoSql implements UserDao {
     }
 
     @Override
-    public boolean update(User user) {
-        return false;
+    public boolean update(User user) throws SQLException {
+        String query = "UPDATE utente SET nome = ?, cognome = ? WHERE id = ?;";
+
+        try (ConnectionHandler ch = ConnectionHandler.getInstance();
+             PreparedStatement ps = ch.getPreparedStatement(query))
+        {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getLastName());
+            ps.setInt(3, user.getId());
+            int updatedCount = ps.executeUpdate();
+            return updatedCount > 0;
+        }
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public boolean delete(int id) throws SQLException {
+        String query = "DELETE FROM utente WHERE id = ?;";
+
+        try (ConnectionHandler ch = ConnectionHandler.getInstance();
+             PreparedStatement ps = ch.getPreparedStatement(query))
+        {
+            ps.setInt(1, id);
+            int deletedCount = ps.executeUpdate();
+            return deletedCount > 0;
+        }
     }
 
     @Override
@@ -53,7 +71,19 @@ public class UserDaoSql implements UserDao {
 
     @Override
     public List<User> getByLastName(String lastName) throws SQLException {
-        return null;
+        List<User> users = new ArrayList<>();
+
+        String query = "SELECT * FROM utente WHERE cognome = ?;";
+
+        try (ConnectionHandler ch = ConnectionHandler.getInstance();
+             PreparedStatement ps = ch.getPreparedStatement(query))
+        {
+            ps.setString(1, lastName);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) users.add(User.fromResultSet(rs));
+        }
+
+        return users;
     }
 
     @Override
