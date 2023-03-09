@@ -2,7 +2,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class DatabaseConnection {
 
     public static void main(String[] args) throws SQLException {
         /* scriviamo un programma che legge da database e crea oggetti */
