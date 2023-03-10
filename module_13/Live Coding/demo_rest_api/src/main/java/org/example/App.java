@@ -29,11 +29,21 @@ public class App {
         * Metodo get esposto verso l'esterno che si invoca
         * su endpoint /helloworld
         *
-        * es: http://localhost:8080/helloworld
+        * path --> è un prefisso per gli endpoint, tutto quello che viene dopo
+        * inizia con quel percorso
+        *
+        * es: http://localhost:8080/api/test/helloworld
         * */
+        path( "/api/v1/test", () ->{
+            get("/helloworld", (req, res)->{
+                return "Hello World nidificato!";
+            });
+        });
+        // Senza nidificazione
         get("/helloworld", (req, res)->{
             return "Hello World!";
         });
+
 
         /*
         * Servizio web che torna un  utente dummy
@@ -91,5 +101,16 @@ public class App {
             res.type("application/json");
             return new Gson().toJson(newUser);
         });
+
+        put("/user", (req, res)->{
+
+            User user2update = new Gson().fromJson(req.body(), User.class);
+
+            users.put(user2update.getId(), user2update);
+
+            res.type("application/json");
+            return new Gson().toJson(user2update);
+        });
+
     }
 }
