@@ -1,6 +1,7 @@
 package org.example;
 
 import com.google.gson.Gson;
+import org.example.model.ErrorResponse;
 import org.example.model.User;
 
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class App {
             //Simulo che non ho trovato nessun utente nel database con un parametro 0
             if(userResponse==null){
                 res.status(404);
-                return new Gson().toJson("User not found");
+                return new Gson().toJson(new ErrorResponse("User not found", "404"));
             }
 
             //TODO: implementare ricerca per username
