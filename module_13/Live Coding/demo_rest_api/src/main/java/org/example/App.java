@@ -46,22 +46,50 @@ public class App {
             String username = req.queryParams("username");
 
             // Cerco nel Database utente con id e/o username che prendo da params
-            User uDummy = new User( userId, username, "myEmail@gmail.com");
+            User userResponse = users.get(userId);
 
             //Simulo che non ho trovato nessun utente nel database con un parametro 0
-            if(userId==0){
+            if(userResponse==null){
                 res.status(404);
                 return new Gson().toJson("User not found");
             }
 
+            //TODO: implementare ricerca per username
+
             res.type("application/json"); //il tipo di ritorno è json
-            return new Gson().toJson(uDummy);
+            return new Gson().toJson(userResponse);
         });
 
         //Get all users
         get("/users", (req, res)->{
             res.type("application/json");
             return new Gson().toJsonTree(users.values());
+        });
+
+        //Delete di un record
+        delete("/user", (req, res)->{
+            //mi aspetto nel sevizio una proprietà "id" dopo il ?
+            int userId = Integer.valueOf(req.queryParams("id"));
+
+            users.remove(userId); //rimuovo dalla mappa
+
+            res.type("application/json");
+            return new Gson().toJson("Utente cancellato");
+        });
+
+        post("/user", (req, res)->{
+
+            /**
+             * req.body --> prendo i dati dal body della richiesta http
+             * User.class --> classe per il mapping
+             */
+            User newUser = new Gson().fromJson(req.body(), User.class);
+            newUser.setId(100); //TODO: rendere randomico
+
+            users.put(newUser.getId(), newUser);
+
+            res.type("application/json");
+            return new Gson().toJson(newUser);
         });
     }
 }
