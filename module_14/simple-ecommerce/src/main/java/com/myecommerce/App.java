@@ -20,34 +20,44 @@ public class App {
         Product p1 = new Product(1L, 100, 9.99, "P1", "Product P1");
         products.add(p1);
 
-        port(8080); //opzionale, indica su quale porta è in ascolto il mio processo 
+        port(8080); //opzionale, indica su quale porta è in ascolto il mio processo
 
         path("/ecommerce", () -> {
             path("/product", () -> {
-                        post("/add", (req, res) -> {
-                            Product newProduct = gson.fromJson(req.body(), Product.class);
+                post("/add", (req, res) -> {
+                        Product newProduct = gson.fromJson(req.body(), Product.class);
 
                             /* Dall'esterno mi arriva un prodotto già presente -> Errore */
-                            if (products.contains(newProduct)) {
-                                res.status(400);
-                                return "product already present";
+                        if (products.contains(newProduct)) {
+                            res.status(400);
+                            return "product already present";
                             }
 
-                            products.add(newProduct);
-                            res.status(201);
-                            return "ok";
+                        products.add(newProduct);
+                        res.status(201);
+                        return "ok";
                         });
-                    }
+
+                delete("/remove", (req, res) -> {
+                    long productID = Long.valueOf(req.queryParams("id"));
+
+                    // Controllo di esistenza del prodotto non necessario (se non esiste è già come lo volevamo)
+                    products.removeIf( p -> p.getId() == productID );
+
+                    res.status(200);
+                    return "ok";
+                });
+            }
+
             );
 
             path("/products", () -> {
                 get("/available", (req, res) -> {
-                            res.type("application/json");
-                            res.status(200);
+                    res.type("application/json");
+                    res.status(200);
 
-                            return gson.toJson(products);
-                        }
-                );
+                        return gson.toJson(products);
+                });
             });
         });
     }
