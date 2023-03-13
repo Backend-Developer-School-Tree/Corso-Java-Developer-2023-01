@@ -80,4 +80,8 @@ public class Product {
     public int hashCode(){
         return Objects.hash(id);
     }
+
+    public void decreaseStock(int quantity){
+        stockAvailability -= quantity;
+    }
 }

@@ -4,10 +4,18 @@ import com.google.gson.Gson;
 import com.myecommerce.model.Product;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static spark.Spark.*;
 
+/*
+* TODO:
+*  1. Implementare ricerca prodotto per ID e per name 
+*  2. Aggiungere persistenza (DB)
+*  3. Bonus: modificare il codice per aggiungere JUnit (es creare classe DummyDB dove
+* gestire i prodotti e testare quella classe)
+* */
 public class App {
 
     private static Set<Product> products = new HashSet<>();
@@ -38,6 +46,43 @@ public class App {
                         return "ok";
                         });
 
+                post("/buy", (req, res) -> {
+                    String productID = req.queryParams("id");
+                    String quantity =req.queryParams("quantity"); //String perché se null mi potrebbe dare problemi
+
+                    if(productID == null || quantity == null || productID.equals("") || quantity.equals("")){
+                        res.status(400);
+                        return "Malformed request";
+                    }
+
+                    // Ho convertito la stringa che arriva dall'esterno nel mio tipo numerico
+                    long productIDConverted = Long.valueOf(productID);
+                    int quantityConverted = Integer.valueOf(quantity);
+
+                    Optional<Product> productOptional = products.stream()
+                                                                .filter(prod -> prod.getId() == productIDConverted)
+                                                                .findFirst();
+
+                    // ID valido ma non esistente
+                    if(productOptional.isEmpty()){
+                        res.status(404);
+                        return "Product not found";
+                    }
+
+                    // Controllo se quantità sufficiente
+                    Product product = productOptional.get();
+                    if(product.getStockAvailability()<quantityConverted){
+                        res.status(404);
+                        return "Product out of stock";
+                    }
+
+                    product.decreaseStock(quantityConverted);
+                    res.status(200);
+
+                    return "Ok";
+                });
+
+                //TODO: Modificare parse da long a String e implementare controllo su ID
                 delete("/remove", (req, res) -> {
                     long productID = Long.valueOf(req.queryParams("id"));
 
@@ -56,7 +101,7 @@ public class App {
                     res.type("application/json");
                     res.status(200);
 
-                        return gson.toJson(products);
+                    return gson.toJson(products);
                 });
             });
         });
