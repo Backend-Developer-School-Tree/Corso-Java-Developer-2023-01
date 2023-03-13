@@ -24,6 +24,8 @@ public class AppTest {
     void setUpBeforeEach(){
         System.out.println("Hello World");
 
+        String s = "new";
+        s.length();
         myStringList = new ArrayList<>();
 
         myStringList.add("My value 1");
