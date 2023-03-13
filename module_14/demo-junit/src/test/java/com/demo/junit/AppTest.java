@@ -1,11 +1,9 @@
 package com.demo.junit;
 
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class AppTest {
 
     @BeforeAll
     static void beforeAllMethods(){
-        
+
         System.out.println("Before all methods");
     }
 
