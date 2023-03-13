@@ -18,6 +18,7 @@ public class AppTest {
 
     @BeforeAll
     static void beforeAllMethods(){
+        
         System.out.println("Before all methods");
     }
 
